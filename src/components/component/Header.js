@@ -24,19 +24,20 @@ function header({ onMenuClick }) {
           <li>
             <button
               style={{ backgroundColor: "powderblue",  cursor:"pointer",border:0}}
-              onClick={() => onMenuClick("SCW")}
-            >
-              Search City's Weather
-            </button>
-          </li>
-          <li>
-            <button
-              style={{ backgroundColor: "powderblue",  cursor:"pointer",border:0}}
               onClick={() => onMenuClick("CreditCalculator")}
             >
               CreditCalculator
             </button>
           </li>
+          <li>
+            <button
+              style={{ backgroundColor: "powderblue",  cursor:"pointer",border:0}}
+              onClick={() => onMenuClick("SCW")}
+            >
+              Search City's Weather
+            </button>
+          </li>
+        
         </ul>
       </nav>
     </header>

@@ -8,6 +8,7 @@ import Grade from "@/components/component/Grade";
 import Header from "@/components/component/Header";
 import { useState } from "react";
 import { CC } from "@/components/component/CC";
+
 export default function Home() {
   const [handleMenuClick, sethandleMenuClick] = useState("HOME");
   const handleLearnMoreClick = () => {
@@ -26,10 +27,12 @@ export default function Home() {
           crossorigin="anonymous"
           referrerpolicy="no-referrer"
         /> 
+
+        
       <Header onMenuClick={sethandleMenuClick} />
       <main className="Main">
         {handleMenuClick === "HOME" ? (
-          <Homepage onLearnMoreClick={handleLearnMoreClick} />
+          <Homepage onButtonClick={sethandleMenuClick} />
         ) : handleMenuClick === "GRADE" ? (
           <Grade />
         ) : handleMenuClick === "SCW" ? (

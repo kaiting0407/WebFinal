@@ -59,7 +59,7 @@ function Grade() {
         <i className="fas fa-plus-square"></i>
       </button>
       <div className="result">
-        <p>
+        <p className="text-xl mb-2">
           Your semester <br />
           GPA is
         </p>

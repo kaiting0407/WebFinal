@@ -33,59 +33,57 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 
-export function Homepage({ onLearnMoreClick }) {
+export function Homepage({onButtonClick }) {
   return (
-    <main className="flex flex-col gap-12 py-12 md:py-24 lg:py-32">
-      <section className="container px-4 md:px-6">
-        <div className="grid gap-6 md:grid-cols-2 md:gap-12">
-          <div className="space-y-4">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              小工具網站
-            </h2>
-            <p className="text-gray-500 md:text-xl dark:text-gray-400">
-              可以幫助你計算GPA和查看天氣
-            </p>
-          </div>
-          <Card className="h-full">
-            <CardHeader>
-              <CardTitle>開始使用</CardTitle>
-              {/* <CardDescription>使用小工具來幫助您學習</CardDescription> */}
-            </CardHeader>
-            <CardContent className="grid gap-4">
-              <div className="flex items-center gap-4">
-                <ClipboardIcon className="w-8 h-8 text-gray-900 dark:text-gray-50" />
-                <div>
-                  {/* <h3 className="font-medium">GPA計算</h3> */}
-                  <p className="text-gray-500 dark:text-gray-400">GPA計算機</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <CalendarIcon className="w-8 h-8 text-gray-900 dark:text-gray-50" />
-                <div>
-                  {/* <h3 className="font-medium">Calendar</h3> */}
-                  <p className="text-gray-500 dark:text-gray-400">
-                    查看天氣來安排你得行程
-                  </p>
-                </div>
-              </div>
-              {/* <div className="flex items-center gap-4">
-                 <BarChartIcon className="w-8 h-8 text-gray-900 dark:text-gray-50" /> 
-              </div> */}
-            </CardContent>
-            <CardFooter>
-              <button className="inline-flex items-center gap-2 text-gray-900 hover:underline dark:text-gray-50">
-                Learn More
-              </button>
-              <ArrowRightIcon className="w-4 h-4" />
-            </CardFooter>
-          </Card>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-powerblue-100 dark:bg-gray-900">
+      <header className="w-full max-w-5xl px-4 py-8 mb-12">
+        <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-gray-100">
+          Utility Hub
+        </h1>
+      </header>
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 w-full max-w-5xl px-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 flex flex-col items-center justify-center">
+          <CalculatorIcon className="w-12 h-12 text-gray-600 dark:text-gray-400 mb-4" />
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+            GPA Calculator
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
+            Easily calculate your grade point average.
+          </p>
+          <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => onButtonClick("GRADE")}>
+            Calculator GPA
+          </button>
         </div>
-      </section>
-    </main>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 flex flex-col items-center justify-center">
+          <CalculatorIcon className="w-12 h-12 text-gray-600 dark:text-gray-400 mb-4" />
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+            Credit Calculator
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
+            Determine your total earned credits.
+          </p>
+          <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => onButtonClick("CreditCalculator")}>
+            Calculator Credits
+          </button>
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 flex flex-col items-center justify-center">
+          <SunIcon className="w-12 h-12 text-gray-600 dark:text-gray-400 mb-4" />
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+            Weather Lookup
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
+            Check the current weather for any location.
+          </p>
+          <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => onButtonClick("SCW")}>
+            Check Weather
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
-function ArrowRightIcon(props) {
+function CalculatorIcon(props) {
   return (
     <svg
       {...props}
@@ -99,13 +97,21 @@ function ArrowRightIcon(props) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M5 12h14" />
-      <path d="m12 5 7 7-7 7" />
+      <rect width="16" height="20" x="4" y="2" rx="2" />
+      <line x1="8" x2="16" y1="6" y2="6" />
+      <line x1="16" x2="16" y1="14" y2="18" />
+      <path d="M16 10h.01" />
+      <path d="M12 10h.01" />
+      <path d="M8 10h.01" />
+      <path d="M12 14h.01" />
+      <path d="M8 14h.01" />
+      <path d="M12 18h.01" />
+      <path d="M8 18h.01" />
     </svg>
   );
 }
 
-function BarChartIcon(props) {
+function SunIcon(props) {
   return (
     <svg
       {...props}
@@ -119,52 +125,15 @@ function BarChartIcon(props) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <line x1="12" x2="12" y1="20" y2="10" />
-      <line x1="18" x2="18" y1="20" y2="4" />
-      <line x1="6" x2="6" y1="20" y2="16" />
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2" />
+      <path d="M12 20v2" />
+      <path d="m4.93 4.93 1.41 1.41" />
+      <path d="m17.66 17.66 1.41 1.41" />
+      <path d="M2 12h2" />
+      <path d="M20 12h2" />
+      <path d="m6.34 17.66-1.41 1.41" />
+      <path d="m19.07 4.93-1.41 1.41" />
     </svg>
   );
 }
-
-function CalendarIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M8 2v4" />
-      <path d="M16 2v4" />
-      <rect width="18" height="18" x="3" y="4" rx="2" />
-      <path d="M3 10h18" />
-    </svg>
-  );
-}
-
-function ClipboardIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
-      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-    </svg>
-  );
-}
-export default Homepage;

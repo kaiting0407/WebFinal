@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select";
 
 export function CC() {
+
   const semester=[
     {
       name:"大一上"
@@ -35,20 +36,30 @@ export function CC() {
     }
   ]
 
-
-
-
-  // Separate states for 大一上 and 大二上
+  const [totalRequiredCredits, setTotalRequiredCredits] = useState(0);
+  const [totalElectedCredits, setTotalElectedCredits] = useState(0);
+  const addCredits = (credits, type) => {
+    if (type === 'required') {
+      setTotalRequiredCredits(prev => prev + credits);
+    } else {
+      setTotalElectedCredits(prev => prev + credits);
+    }
+  };
+  const deleteCredits = (credits, type) => {
+    if (type === 'required') {
+      setTotalRequiredCredits(prev => prev - credits);
+    } else {
+      setTotalElectedCredits(prev => prev - credits);
+    }
+  };
 
   
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-     
-
-      {semester.map((item,index)=>{
-return(<Cardadd title={item.name} key={index}/> )
-      }) }
+      {semester.map((item, index) => (
+        <Cardadd title={item.name} key={index} addCredits={addCredits} deleteCredits={deleteCredits} />
+      ))}
       <Card className="w-full">
         <CardHeader>
           <CardTitle>Credit Summary</CardTitle>
@@ -58,15 +69,15 @@ return(<Cardadd title={item.name} key={index}/> )
           <div className="grid gap-4">
             <div className="flex items-center justify-between">
               <span>Total Required Credits:</span>
-              <span></span>
+              <span>{totalRequiredCredits}</span>
             </div>
             <div className="flex items-center justify-between">
               <span>Total Elected Credits:</span>
-              <span></span>
+              <span>{totalElectedCredits}</span>
             </div>
             <div className="flex items-center justify-between">
               <span>Total Credits:</span>
-              <span></span>
+              <span>{totalRequiredCredits + totalElectedCredits}</span>
             </div>
           </div>
         </CardContent>
@@ -75,14 +86,15 @@ return(<Cardadd title={item.name} key={index}/> )
   );
 }
 
-function Cardadd({title}){
+function Cardadd({title,addCredits,deleteCredits}){
   const [coursesYear1, setCoursesYear1] = useState([]);
   const [courseName, setCourseName] = useState('');
   const [credits, setCredits] = useState(0);
   const [type, setType] = useState('required');
-  
+
   const addCourseYear1 = () => {
     setCoursesYear1([...coursesYear1, { name: courseName, credits: Number(credits), type }]);
+    addCredits(Number(credits),type)
     resetForm();
   };
   const resetForm = () => {
@@ -93,6 +105,8 @@ function Cardadd({title}){
 
   const deleteCourseYear1 = (index) => {
     setCoursesYear1(coursesYear1.filter((_, i) => i !== index));
+    const course = coursesYear1[index];
+    deleteCredits(course.credits, course.type);
   };
 
   const calculateCredits = (courses, type) => {
@@ -101,7 +115,6 @@ function Cardadd({title}){
 
   const requiredCreditsYear1 = calculateCredits(coursesYear1, 'required');
   const electedCreditsYear1 = calculateCredits(coursesYear1, 'elected');
-  const totalCreditsYear1 = requiredCreditsYear1 + electedCreditsYear1;
 
   return(
     <Card className="w-full">

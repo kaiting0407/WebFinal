@@ -1,8 +1,6 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import "@/styles/WeatherApp.css";
-
-// SCW組件定義
 const SCW = () => {
   // API 金鑰，通常應放在環境變數中
   let api_key = "7687a140640e6ced2ed0c8326eb7bb02";
@@ -10,21 +8,31 @@ const SCW = () => {
   const [weather, setWeather] = useState(); //天氣數據
   const [loading, setLoading] = useState(false); //加載狀態
   const [wicon, setWicon] = useState(""); //天氣圖標的URL
-
+  const [city,setCity]=useState("Taipei")
+  const cctt =(e) => {
+    setCity(e.target.v);
+  }
   // useCallback確保search函數在組件重新渲染時不會被重建
   const search = useCallback(async () => {
     setLoading(true); // 開始加載數據
     const element = document.getElementsByClassName("cityInput"); // 獲取城市輸入框元素
     if (element[0].value === "") {
       // 檢查輸入是否為空
-
+      setWeather(false);
       setLoading(false);
       return;
     }
 
     // 構建API URL並發送請求
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${element[0].value}&units=Metric&appid=${api_key}`;
+    console.log(url);
     let response = await fetch(url);
+    if(response.status==404){
+      setLoading(false);
+      setWeather(false);
+      return
+    }
+    console.log(response);
     let data = await response.json();
     setWeather(data); // 更新天氣數據狀態
     setLoading(false); // 結束加載狀態
@@ -32,7 +40,7 @@ const SCW = () => {
     // 根據API返回的天氣狀況設置相應的圖標
     if (data.weather && data.weather.length > 0) {
       const iconCode = data.weather[0].icon;
-      const iconUrl = `${process.env.PUBLIC_URL}/Assets/${
+      const iconUrl = `/${
         {
           "01d": "clear",
           "01n": "clear",
@@ -70,14 +78,17 @@ const SCW = () => {
       <div className="containerSCW">
         <div className="top-bar">
           <input
+          defaultValue={city}
             type="text"
             className="cityInput"
             placeholder="Search the city"
+            onChange={cctt}
+            
           />
 
           <div className="search-icon" onClick={search}>
             {/* 按鈕 */}
-            <img src={`${process.env.PUBLIC_URL}/Assets/search.png`} alt="" />
+            <img src={`/search.png`} alt="" />
           </div>
         </div>
 
@@ -94,7 +105,7 @@ const SCW = () => {
             <div className="data-container">
               <div className="element">
                 <img
-                  src={`${process.env.PUBLIC_URL}/Assets/humidity.png`}
+                  src={`/humidity.png`}
                   alt=""
                   className="icon"
                 />
@@ -107,7 +118,7 @@ const SCW = () => {
               </div>
               <div className="element">
                 <img
-                  src={`${process.env.PUBLIC_URL}/Assets/wind.png`}
+                  src={`/wind.png`}
                   alt=""
                   className="icon"
                 />
@@ -121,7 +132,7 @@ const SCW = () => {
             </div>
           </>
         ) : (
-          <div>No weather data available.</div>
+          <h1>No weather data available.</h1>
         )}
       </div>
     </>
