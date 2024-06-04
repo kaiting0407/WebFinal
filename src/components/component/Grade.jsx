@@ -84,7 +84,7 @@ function Grade() {
         <option value="ELED">Elementary Education</option>
         <option value="EMGT">Emergency Management</option>
         <option value="ENGL">English</option>
-        <option value="EIL">English as Int'l Language</option>
+        <option value="EIL">English as Int&aposl Language</option>
         <option value="ENTR">Entrepreneurship</option>
         <option value="EXS">Exercise Sport Science</option>
         <option value="FILM">Film</option>

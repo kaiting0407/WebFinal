@@ -34,7 +34,7 @@ function header({ onMenuClick }) {
               style={{ backgroundColor: "powderblue",  cursor:"pointer",border:0}}
               onClick={() => onMenuClick("SCW")}
             >
-              Search City's Weather
+              Search City&aposs Weather
             </button>
           </li>
         
